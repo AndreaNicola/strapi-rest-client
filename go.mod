@@ -1,0 +1,1 @@
+module "github.com/AndreaNicola/strapi-rest-client"
