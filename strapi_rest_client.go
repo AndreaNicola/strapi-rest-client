@@ -10,8 +10,9 @@ import (
 )
 
 type StrapiRestClient struct {
-	baseUrl string
+	BaseUrl string
 }
+
 
 func New() StrapiRestClient {
 	return NewWithUlr(os.Getenv("STRAPI_BASE_URL"))
@@ -23,7 +24,7 @@ func NewWithUlr(baseUrl string) (src StrapiRestClient) {
 		panic("STRAPI BASE URL IS MANDATORY")
 	}
 
-	src.baseUrl = baseUrl
+	src.BaseUrl = baseUrl
 	return
 
 }
@@ -67,15 +68,14 @@ func call(method, url string, callback callback) {
 
 }
 
-
 func (src StrapiRestClient) GetUser(id int) *StrapiUser {
 	var result StrapiUser
-	call("GET", src.baseUrl+"/users/"+strconv.Itoa(id), result.New)
+	call("GET", src.BaseUrl+"/users/"+strconv.Itoa(id), result.New)
 	return &result
 }
 
 func (src StrapiRestClient) GetProduct(id int) *StrapiProduct {
 	var result StrapiProduct
-	call("GET", src.baseUrl+"/products/"+strconv.Itoa(id), result.New)
+	call("GET", src.BaseUrl+"/products/"+strconv.Itoa(id), result.New)
 	return &result
 }
