@@ -24,7 +24,7 @@ type StrapiUser struct {
 	Email     string         `json:"email"`
 	Provider  string         `json:"provider"`
 	Confirmed bool           `json:"confirmed"`
-	Blocked   *bool          `json:"blocked"`
+	Blocked   bool          `json:"blocked"`
 	Role      StrapiUserRole `json:"role"`
 	Disabled  bool           `json:"disabled"`
 	CreatedAt time.Time      `json:"created_at"`
@@ -52,7 +52,7 @@ func (su *StrapiUser) New(params map[string]interface{}) {
 	}
 
 	if blocked := params["blocked"]; blocked != nil {
-		su.Blocked = blocked.(*bool)
+		su.Blocked = blocked.(bool)
 	}
 
 	var role StrapiUserRole
