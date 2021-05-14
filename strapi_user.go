@@ -57,6 +57,7 @@ func (su *StrapiUser) New(params map[string]interface{}) {
 
 	var role StrapiUserRole
 	role.New(params["role"].(map[string]interface{}))
+	su.Role = role
 
 }
 
