@@ -113,6 +113,7 @@ type StrapiProduct struct {
 	Price          float64              `json:"price"`
 	AdditionalInfo string               `json:"additional_info"`
 	Quantity       int                  `json:"quantity"`
+	Permalink      string               `json:"permalink"`
 	PublishedAt    time.Time            `json:"published_at"`
 	CreatedAt      time.Time            `json:"created_at"`
 	UpdatedAt      time.Time            `json:"updated_at"`
@@ -129,6 +130,7 @@ func (sp *StrapiProduct) New(params map[string]interface{}) {
 	sp.Description = params["description"].(string)
 	sp.Abstract = params["abstract"].(string)
 	sp.AdditionalInfo = params["additional_info"].(string)
+	sp.Permalink = params["permalink"].(string)
 
 	createdAt, t1Err := time.Parse(time.RFC3339, params["created_at"].(string))
 	updatedAt, t2Err := time.Parse(time.RFC3339, params["updated_at"].(string))
@@ -161,4 +163,3 @@ func (sp *StrapiProduct) New(params map[string]interface{}) {
 	sp.Image = image
 
 }
-
