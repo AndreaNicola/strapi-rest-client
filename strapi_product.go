@@ -12,7 +12,7 @@ type StrapiProductImageFormat struct {
 	Hash   string  `json:"hash"`
 	Ext    string  `json:"ext"`
 	Mime   string  `json:"mime"`
-	Path   string  `json:"path"`
+	//Path   string  `json:"path"`
 	URL    string  `json:"url"`
 }
 
@@ -24,7 +24,7 @@ func (spif *StrapiProductImageFormat) New(params map[string]interface{}) {
 	spif.Hash = params["hash"].(string)
 	spif.Ext = params["ext"].(string)
 	spif.Mime = params["mime"].(string)
-	spif.Path = params["path"].(string)
+	//spif.Path = params["path"].(string)
 	spif.URL = params["url"].(string)
 }
 
@@ -66,7 +66,7 @@ type StrapiProductImage struct {
 	Ext             string                    `json:"ext"`
 	Mime            string                    `json:"mime"`
 	URL             string                    `json:"url"`
-	PreviewUrl      string                    `json:"previewUrl"`
+	//PreviewUrl      string                    `json:"previewUrl"`
 	Provider        string                    `json:"provider"`
 	CreatedAt       time.Time                 `json:"created_at"`
 	UpdatedAt       time.Time                 `json:"updated_at"`
@@ -84,8 +84,8 @@ func (spi *StrapiProductImage) New(params map[string]interface{}) {
 	spi.Hash = params["hash"].(string)
 	spi.Ext = params["ext"].(string)
 	spi.Mime = params["mime"].(string)
-	spi.URL = params["uRL"].(string)
-	spi.PreviewUrl = params["previewUrl"].(string)
+	spi.URL = params["url"].(string)
+	//spi.PreviewUrl = params["previewUrl"].(string)
 	spi.Provider = params["provider"].(string)
 	createdAt, t1Err := time.Parse(time.RFC3339, params["created_at"].(string))
 	updatedAt, t2Err := time.Parse(time.RFC3339, params["updated_at"].(string))
