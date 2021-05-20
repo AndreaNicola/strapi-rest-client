@@ -12,95 +12,172 @@ type StrapiProductImageFormat struct {
 	Hash   string  `json:"hash"`
 	Ext    string  `json:"ext"`
 	Mime   string  `json:"mime"`
-	//Path   string  `json:"path"`
+	Path   string  `json:"path"`
 	URL    string  `json:"url"`
 }
 
 func (spif *StrapiProductImageFormat) New(params map[string]interface{}) {
-	spif.Width = int(params["width"].(float64))
-	spif.Height = int(params["height"].(float64))
-	spif.Size = params["height"].(float64)
-	spif.Name = params["name"].(string)
-	spif.Hash = params["hash"].(string)
-	spif.Ext = params["ext"].(string)
-	spif.Mime = params["mime"].(string)
-	//spif.Path = params["path"].(string)
-	spif.URL = params["url"].(string)
+
+	if val, ok := params["width"]; ok {
+		spif.Width = int(val.(float64))
+	}
+
+	if val, ok := params["height"]; ok {
+		spif.Height = int(val.(float64))
+	}
+
+	if val, ok := params["height"]; ok {
+		spif.Size = val.(float64)
+	}
+
+	if val, ok := params["name"]; ok {
+		spif.Name = val.(string)
+	}
+
+	if val, ok := params["hash"]; ok {
+		spif.Hash = val.(string)
+	}
+
+	if val, ok := params["ext"]; ok {
+		spif.Ext = val.(string)
+	}
+
+	if val, ok := params["mime"]; ok {
+		spif.Mime = val.(string)
+	}
+
+	if val, ok := params["path"]; ok {
+		spif.Path = val.(string)
+	}
+
+	if val, ok := params["url"]; ok {
+		spif.URL = val.(string)
+	}
+
 }
 
 type StrapiProductImageFormats struct {
-	Thumbnail StrapiProductImageFormat `json:"thumbnail"`
-	Large     StrapiProductImageFormat `json:"large"`
-	Medium    StrapiProductImageFormat `json:"medium"`
-	Small     StrapiProductImageFormat `json:"small"`
+	Thumbnail *StrapiProductImageFormat `json:"thumbnail"`
+	Large     *StrapiProductImageFormat `json:"large"`
+	Medium    *StrapiProductImageFormat `json:"medium"`
+	Small     *StrapiProductImageFormat `json:"small"`
 }
 
 func (spifs *StrapiProductImageFormats) New(params map[string]interface{}) {
 
-	var thumbnail StrapiProductImageFormat
-	var large StrapiProductImageFormat
-	var medium StrapiProductImageFormat
-	var small StrapiProductImageFormat
+	if t, ok := params["thumbnail"]; ok {
+		spifs.Thumbnail = &StrapiProductImageFormat{}
+		spifs.Thumbnail.New(t.(map[string]interface{}))
+	}
 
-	thumbnail.New(params["thumbnail"].(map[string]interface{}))
-	large.New(params["large"].(map[string]interface{}))
-	medium.New(params["medium"].(map[string]interface{}))
-	small.New(params["small"].(map[string]interface{}))
+	if l, ok := params["large"]; ok {
+		spifs.Large = &StrapiProductImageFormat{}
+		spifs.Large.New(l.(map[string]interface{}))
+	}
 
-	spifs.Thumbnail = thumbnail
-	spifs.Large = large
-	spifs.Medium = medium
-	spifs.Small = small
+	if m, ok := params["medium"]; ok {
+		spifs.Medium = &StrapiProductImageFormat{}
+		spifs.Medium.New(m.(map[string]interface{}))
+	}
+
+	if s, ok := params["small"]; ok {
+		spifs.Small = &StrapiProductImageFormat{}
+		spifs.Small.New(s.(map[string]interface{}))
+	}
 
 }
 
 type StrapiProductImage struct {
-	ID              int                       `json:"id"`
-	Width           int                       `json:"width"`
-	Height          int                       `json:"height"`
-	Size            float64                   `json:"size"`
-	Name            string                    `json:"name"`
-	AlternativeText string                    `json:"alternativeText"`
-	Caption         string                    `json:"caption"`
-	Hash            string                    `json:"hash"`
-	Ext             string                    `json:"ext"`
-	Mime            string                    `json:"mime"`
-	URL             string                    `json:"url"`
-	//PreviewUrl      string                    `json:"previewUrl"`
-	Provider        string                    `json:"provider"`
-	CreatedAt       time.Time                 `json:"created_at"`
-	UpdatedAt       time.Time                 `json:"updated_at"`
-	Formats         StrapiProductImageFormats `json:"formats"`
+	ID              int                        `json:"id"`
+	Width           int                        `json:"width"`
+	Height          int                        `json:"height"`
+	Size            float64                    `json:"size"`
+	Name            string                     `json:"name"`
+	AlternativeText string                     `json:"alternativeText"`
+	Caption         string                     `json:"caption"`
+	Hash            string                     `json:"hash"`
+	Ext             string                     `json:"ext"`
+	Mime            string                     `json:"mime"`
+	URL             string                     `json:"url"`
+	PreviewUrl      string                     `json:"previewUrl"`
+	Provider        string                     `json:"provider"`
+	CreatedAt       time.Time                  `json:"created_at"`
+	UpdatedAt       time.Time                  `json:"updated_at"`
+	Formats         *StrapiProductImageFormats `json:"formats"`
 }
 
 func (spi *StrapiProductImage) New(params map[string]interface{}) {
-	spi.ID = int(params["id"].(float64))
-	spi.Width = int(params["width"].(float64))
-	spi.Height = int(params["height"].(float64))
-	spi.Size = params["height"].(float64)
-	spi.Name = params["name"].(string)
-	spi.AlternativeText = params["alternativeText"].(string)
-	spi.Caption = params["caption"].(string)
-	spi.Hash = params["hash"].(string)
-	spi.Ext = params["ext"].(string)
-	spi.Mime = params["mime"].(string)
-	spi.URL = params["url"].(string)
-	//spi.PreviewUrl = params["previewUrl"].(string)
-	spi.Provider = params["provider"].(string)
-	createdAt, t1Err := time.Parse(time.RFC3339, params["created_at"].(string))
-	updatedAt, t2Err := time.Parse(time.RFC3339, params["updated_at"].(string))
 
-	if t1Err != nil {
-		spi.CreatedAt = createdAt
+	if val, ok := params["id"]; ok {
+		spi.ID = int(val.(float64))
 	}
 
-	if t2Err != nil {
-		spi.UpdatedAt = updatedAt
+	if val, ok := params["width"]; ok {
+		spi.Width = int(val.(float64))
 	}
 
-	var formats StrapiProductImageFormats
-	formats.New(params["formats"].(map[string]interface{}))
-	spi.Formats = formats
+	if val, ok := params["height"]; ok {
+		spi.Height = int(val.(float64))
+	}
+
+	if val, ok := params["height"]; ok {
+		spi.Size = val.(float64)
+	}
+
+	if val, ok := params["name"]; ok {
+		spi.Name = val.(string)
+	}
+
+	if val, ok := params["alternativeText"]; ok {
+		spi.AlternativeText = val.(string)
+	}
+
+	if val, ok := params["caption"]; ok {
+		spi.Caption = val.(string)
+	}
+
+	if val, ok := params["hash"]; ok {
+		spi.Hash = val.(string)
+	}
+
+	if val, ok := params["ext"]; ok {
+		spi.Ext = val.(string)
+	}
+
+	if val, ok := params["mime"]; ok {
+		spi.Mime = val.(string)
+	}
+
+	if val, ok := params["url"]; ok {
+		spi.URL = val.(string)
+	}
+
+	if val, ok := params["previewUrl"]; ok {
+		spi.PreviewUrl = val.(string)
+	}
+
+	if val, ok := params["previewUrl"]; ok {
+		spi.Provider = val.(string)
+	}
+
+	if val, ok := params["created_at"]; ok {
+		createdAt, t1Err := time.Parse(time.RFC3339, val.(string))
+		if t1Err != nil {
+			spi.CreatedAt = createdAt
+		}
+	}
+
+	if val, ok := params["updated_at"]; ok {
+		updatedAt, t2Err := time.Parse(time.RFC3339, val.(string))
+		if t2Err != nil {
+			spi.UpdatedAt = updatedAt
+		}
+	}
+
+	if val, ok := params["formats"]; ok {
+		spi.Formats = &StrapiProductImageFormats{}
+		spi.Formats.New(val.(map[string]interface{}))
+	}
 
 }
 
@@ -126,40 +203,56 @@ func (sp *StrapiProduct) New(params map[string]interface{}) {
 	sp.Quantity = int(params["quantity"].(float64))
 	sp.Price = params["price"].(float64)
 
-	sp.Title = params["title"].(string)
-	sp.Description = params["description"].(string)
-	sp.Abstract = params["abstract"].(string)
-	sp.AdditionalInfo = params["additional_info"].(string)
-	sp.Permalink = params["permalink"].(string)
-
-	createdAt, t1Err := time.Parse(time.RFC3339, params["created_at"].(string))
-	updatedAt, t2Err := time.Parse(time.RFC3339, params["updated_at"].(string))
-	publishedAt, t3Err := time.Parse(time.RFC3339, params["published_at"].(string))
-
-	if t1Err != nil {
-		sp.CreatedAt = createdAt
+	if val, ok := params["title"]; ok {
+		sp.Title = val.(string)
 	}
 
-	if t2Err != nil {
-		sp.UpdatedAt = updatedAt
+	if val, ok := params["description"]; ok {
+		sp.Description = val.(string)
 	}
 
-	if t3Err != nil {
-		sp.PublishedAt = publishedAt
+	if val, ok := params["abstract"]; ok {
+		sp.Abstract = val.(string)
 	}
 
-	var image = make([]StrapiProductImage, 0)
-
-	for _, e := range params["image"].([]interface{}) {
-
-		imageMap := e.(map[string]interface{})
-		var im StrapiProductImage
-		im.New(imageMap)
-
-		image = append(image, im)
-
+	if val, ok := params["additional_info"]; ok {
+		sp.AdditionalInfo = val.(string)
 	}
 
-	sp.Image = image
+	if val, ok := params["permalink"]; ok {
+		sp.Permalink = val.(string)
+	}
+
+	if val, ok := params["created_at"]; ok {
+		createdAt, t1Err := time.Parse(time.RFC3339, val.(string))
+		if t1Err != nil {
+			sp.CreatedAt = createdAt
+		}
+	}
+
+	if val, ok := params["updated_at"]; ok {
+		updatedAt, t2Err := time.Parse(time.RFC3339, val.(string))
+		if t2Err != nil {
+			sp.UpdatedAt = updatedAt
+		}
+	}
+
+	if val, ok := params["published_at"]; ok {
+		publishedAt, t2Err := time.Parse(time.RFC3339, val.(string))
+		if t2Err != nil {
+			sp.PublishedAt = publishedAt
+		}
+	}
+
+	sp.Image = make([]StrapiProductImage, 0)
+
+	if images, ok := params["image"]; ok {
+		for _, e := range images.([]interface{}) {
+			imageMap := e.(map[string]interface{})
+			var im StrapiProductImage
+			im.New(imageMap)
+			sp.Image = append(sp.Image, im)
+		}
+	}
 
 }
